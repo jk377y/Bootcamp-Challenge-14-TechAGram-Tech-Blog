@@ -1,0 +1,120 @@
+/* RESET CSS */
+*,*::before,*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+img,picture,video,canvas,svg {
+  max-width: 100%;
+}
+a:visited, a:link {
+  text-decoration: none;
+  color: inherit;
+}
+/* =================================== */
+
+/* Custom CSS */
+:root {
+  --white: white;
+  --red: red;
+  --blue: blue;
+  --black: black;
+  --borderColor: rgba(77, 77, 77, 0.712);
+  --bgColor: rgba(6, 39, 100, 0.89);
+  --windowColor: rgb(0, 0, 0);
+  --hover: rgb(0, 240, 140);
+  --tab1: rgba(0, 99, 145, 0.808);
+  --tab2: rgba(204, 0, 223, 0.666);
+  --tab3: rgb(16, 68, 20, 0.666);
+  --fs-h1: 42px;
+  --fs-h2: 20px;
+  --fs-h3: 16px;
+  --fs-p: 12px;
+}
+/* a:hover {
+  color: var(--hover);
+} */
+body{
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+h1{
+  font-size: var(--fs-h1);
+}
+h2{
+  font-size: var(--fs-h2);
+}
+h3{
+  font-size: var(--fs-h3);
+}
+p{
+  font-size: var(--fs-p);
+}
+/* Header */
+.header{
+  background-color: cornflowerblue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  border-bottom: 2px solid var(--borderColor);
+}
+.title{
+  text-align: center;
+  padding: 20px 0px;
+  width: 100%;
+}
+.span{
+  border-bottom: 2px solid var(--hover);
+}
+.spanA{color: var(--hover)}
+.nav{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  width: 100%;
+  max-width: 500px;
+}
+.home, .dashboard, .logout{
+  margin: 10px 10px;
+  box-shadow: 1px 1px 2px 1px black;
+  padding: 3px 5px;
+  border-radius: 5px;
+}
+.home:hover, .dashboard:hover, .logout:hover{
+  background-color: var(--hover);
+  color: var(--white);
+  box-shadow: 1px 1px 2px 1px black;
+} 
+.greet{
+  text-align: left;
+  padding: 5px;
+}
+main{
+  height: 800px;
+  background-color: rgba(100, 148, 237, 0.76);}
+
+/* @media screen and (max-width: 500px) {
+    body {
+      background-color: lightblue;
+    }
+  } */
+
+@media screen and (min-width: 501px) and (max-width: 768px) {
+  body {
+    
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  body {
+    
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  body {
+    
+  }
+}
