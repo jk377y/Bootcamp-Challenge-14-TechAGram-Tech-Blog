@@ -2,13 +2,14 @@ const { Model, DataTypes } = require("sequelize");
 const bcrypt = require("bcrypt");
 const sequelize = require("../config/connection");
 
+// creates the User model
 class User extends Model {
-	checkPassword(loginPassword) {
-		return bcrypt.compareSync(loginPassword, this.password);
+	checkPassword(loginPassword) {  // checks the password
+		return bcrypt.compareSync(loginPassword, this.password); // returns true or false for the password verification
 	}
 }
 User.init(
-	{
+	{  // setting up properties for the User model
 		id: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
@@ -24,7 +25,7 @@ User.init(
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
-				len: [4],
+				len: [0],  // password must be at least 1 character long
 			},
 		},
 	},

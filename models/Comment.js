@@ -3,9 +3,10 @@ const sequelize = require("../config/connection");
 
 class Comment extends Model {}
 
+// creates the Comment model
 Comment.init(
   {
-    id: {
+    id: {  // setting up properties for the Comment model
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
@@ -19,14 +20,14 @@ Comment.init(
     user_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: "user",
+        model: "user",  // references the User model's id property as the foreign key
         key: "id",
       },
     },
-    blog_id: {
+    post_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: "blog",
+        model: "post",  // references the Post model's id property as the foreign key
         key: "id",
       },
     },
