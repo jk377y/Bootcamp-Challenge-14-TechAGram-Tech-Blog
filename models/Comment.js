@@ -12,19 +12,19 @@ Comment.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    comment_content: {
+    commentContent: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    user_id: {
+    userId: {
       type: DataTypes.INTEGER,
       references: {
         model: "user",  // references the User model's id property as the foreign key
         key: "id",
       },
     },
-    post_id: {
+    postId: {
       type: DataTypes.INTEGER,
       references: {
         model: "post",  // references the Post model's id property as the foreign key
@@ -36,7 +36,7 @@ Comment.init(
     sequelize,
     timestamps: true,
     freezeTableName: true,
-    underscored: true,
+    underscored: false,
     modelName: "comment",
   }
 );
