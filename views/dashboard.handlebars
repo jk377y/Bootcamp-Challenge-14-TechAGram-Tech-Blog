@@ -1,0 +1,15 @@
+{{#if posts.length}}
+    <h2>Your Posts</h2>
+    <div>
+        <ul>
+        {{#each posts}}
+            <li>
+            {{> postStuff}}
+            <a href='/dashboard/editPost/{{id}}' class="buttons">Edit Post</a>
+            </li>  
+        {{/each}}
+        </ul>
+    </div>
+{{#if}}
+
+<h2 href="/dashboard/newPost" class="buttons" id="newPost">New Post</h2>

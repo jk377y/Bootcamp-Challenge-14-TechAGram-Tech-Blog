@@ -20,8 +20,8 @@ router.post("/", (req, res) => {
 	if (req.session) {
 		Comment.create({
 			commentContent: req.body.commentContent,
-			userId: req.session.userId,
-			postId: req.body.postId,
+			user_id: req.session.user_id,
+			post_id: req.body.post_id,
 		})
 			.then((dbCommentData) => res.json(dbCommentData))
 			.catch((err) => {
@@ -37,7 +37,7 @@ router.put("/:id", (req, res) => {
 	Comment.update(
 		{
 			commentContent: req.body.commentContent,
-			userId: req.session.userId,
+			user_id: req.session.user_id,
 		},
 		{
 			where: { id: req.params.id },
@@ -60,7 +60,7 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
 	console.log('https://localhost:3001/api/comments DELETE')  // this is the route that is being hit when the deleting a comment
 	Comment.destroy({
-		where: { id: req.params.id, userId: req.session.userId, },
+		where: { id: req.params.id, user_id: req.session.user_id, },
 	})
 		.then((dbCommentData) => {
 			if (!dbCommentData) {

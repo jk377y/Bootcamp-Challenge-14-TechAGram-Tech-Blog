@@ -20,7 +20,7 @@ Post.init(
       type: DataTypes.TEXT,
       allowNull: false
     },
-    userId: {
+    user_id: {
       type: DataTypes.INTEGER,
       references: {  // references the User model's id property as the foreign key
         model: "user",
@@ -32,7 +32,7 @@ Post.init(
     sequelize,
     timestamps: true,
     freezeTableName: true,
-    underscored: false,
+    underscored: true,
     modelName: "post",
   }
 );

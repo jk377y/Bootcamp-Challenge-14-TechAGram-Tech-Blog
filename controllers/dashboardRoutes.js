@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const { Post, User, Comment } = require("../models");
-const withAuth = require("../utils/auth");
 
 //! for all http://localhost:3001/dashboard routes
 
@@ -13,12 +12,12 @@ router.get("/", (req, res) => {
 		include: [
 			{
 				model: Comment,
-				attributes: ["id", "commentContent", "postId", "userId", "createdAt"],
-				include: { model: User, attributes: ["userName"] },
+				attributes: ["id", "commentContent", "post_id", "user_id", "createdAt"],
+				include: { model: User, attributes: ["user_name"] },
 			},
 			{
 				model: User,
-				attributes: ["userName"],
+				attributes: ["user_name"],
 			},
 		],
 	})
@@ -33,23 +32,23 @@ router.get("/", (req, res) => {
 });
 
 // GET page to edit a post
-router.get("/:id", (req, res) => {
-	console.log('https://localhost:3001/dashboard/:id GET ONE') // this is the route that is being hit when getting data from a single post to edit
+router.get("/editPost/:id", (req, res) => {
+	console.log('https://localhost:3001/dashboard/editPost/:id GET ONE') // this is the route that is being hit when getting the edit post form
 	Post.findOne({
 		where: { id: req.params.id },
 		attributes: ["id", "title", "postContent", "createdAt"],
 		include: [
 			{
 				model: Comment,
-				attributes: ["id", "commentContent", "postId", "userId", "createdAt"],
+				attributes: ["id", "commentContent", "post_id", "user_id", "createdAt"],
 				include: {
 					model: User,
-					attributes: ["userName"],
+					attributes: ["user_name"],
 				},
 			},
 			{
 				model: User,
-				attributes: ["userName"],
+				attributes: ["user_name"],
 			},
 		],
 	})
@@ -78,15 +77,15 @@ router.get('/newPost', (req, res) => {
 	  include: [
 		{
 		  model: Comment,
-		  attributes: ['id', 'commentContent', 'postId', 'userId', 'createdAt'],
+		  attributes: ['id', 'commentContent', 'post_id', 'user_id', 'createdAt'],
 		  include: {
 			model: User,
-			attributes: ['userName']
+			attributes: ['user_name']
 		  }
 		},
 		{
 		  model: User,
-		  attributes: ['userName']
+		  attributes: ['user_name']
 		}
 	  ]
 	})

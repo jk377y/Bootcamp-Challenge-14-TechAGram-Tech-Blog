@@ -13,26 +13,28 @@
     <header class="header">
         <h1 class="title"><span class="span">tech<span class="spanA">A</span>gram</span></h1>
         <nav class="nav">
-            <H2 id="home" class="home"><a href="/">Home</a></H2>
-            <h2 id="dashboard" class="dashboard"><a href="/dashboard">Dashboard</a></h2>
-            {{#if loggedIn}}
-            <h2 id="logout" class="logout" ><a href="/logout">Logout</a></h2>
-            {{else}}
-            <h2 id="login" class="login"><a href="/login">Login</a></h2>
-            {{/if}}
+            <H2 id="home" class="buttons"><a href="/">Home</a></H2>
+            {{!-- {{#if loggedIn}} --}}
+            <h2 id="logout" class="buttons" ><a href="/logout">Logout</a></h2>
+            <h2 id="dashboard" class="buttons"><a href="/dashboard">Dashboard</a></h2>
+            {{!-- {{else}} --}}
+            <h2 id="login" class="buttons"><a href="/login">Login</a></h2>
+            {{!-- {{/if}} --}}
         </nav>
         
     </header>
     
     <main>
-        {{#if loggedIn}}
-        <h3 id="greet" class="greet">Hello, James</h3>
-        {{/if}}
+        {{!-- {{#if loggedIn}} --}}
+        <h3 id="greet" class="greet">Hello {{user_name}}</h3>
+        {{!-- {{/if}} --}}
         
         {{{body}}}
     </main>
-    {{#if loggedIn}}
+    {{!-- {{#if loggedIn}} --}}
     <script src="./js/logout.js"></script>
-    {{/if}}
+    {{!-- {{else}} --}}
+    <script src="./js/login.js"></script>
+    {{!-- {{/if}} --}}
 </body>
 </html>

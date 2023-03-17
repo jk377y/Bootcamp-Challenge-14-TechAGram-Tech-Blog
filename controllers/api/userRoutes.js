@@ -54,13 +54,13 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     console.log(' https://localhost:3001/api/user POST')  // this is the route that is being hit when the user is created
     User.create({
-        userName: req.body.userName,
+        user_name: req.body.user_name,
         password: req.body.password
     })
         .then(dbUserData => {
             req.session.save(() => {
-                req.session.userId = dbUserData.id;
-                req.session.userName = dbUserData.userName;
+                req.session.user_id = dbUserData.id;
+                req.session.user_name = dbUserData.user_name;
                 req.session.loggedIn = true;
                 res.json(dbUserData);
             });
@@ -75,7 +75,7 @@ router.post('/', (req, res) => {
 router.post('/login', (req, res) => {
     console.log(' https://localhost:3001/api/user/login POST') // this is the route that is being hit when the user logs in with the login form
     User.findOne({
-        where: { userName: req.body.userName }
+        where: { user_name: req.body.user_name }
     }).then(dbUserData => {
         if (!dbUserData) {
             res.status(400).json({ message: 'No user with that user name!' });
@@ -87,8 +87,8 @@ router.post('/login', (req, res) => {
             return;
         }
         req.session.save(() => {
-            req.session.userId = dbUserData.id;
-            req.session.userName = dbUserData.userName;
+            req.session.user_id = dbUserData.id;
+            req.session.user_name = dbUserData.user_name;
             req.session.loggedIn = true;
             res.json({ user: dbUserData, message: 'You are now logged in!' });
         });

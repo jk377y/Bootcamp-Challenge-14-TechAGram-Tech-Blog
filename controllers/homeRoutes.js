@@ -12,13 +12,13 @@ router.get("/", async (req, res) => {
 			include: [
 				{
 					model: Comment,
-					attributes: ["id", "commentContent", "userId", "postId", "createdAt"],
+					attributes: ["id", "commentContent", "user_id", "post_id", "createdAt"],
 					include:
-						{ model: User, attributes: ["username"] },
+						{ model: User, attributes: ["user_name"] },
 				},
 				{
 					model: User,
-					attributes: ["userName"],
+					attributes: ["user_name"],
 				},
 			],
 		}).then((dbPostData) => {
@@ -40,12 +40,12 @@ router.get('/post/:id', (req, res) => {
 		include: [
 			{
 				model: Comment,
-				attributes: ['id', 'commentContent', 'postId', 'userId', 'createdAt'],
-				include: { model: User, attributes: ['username'] }
+				attributes: ['id', 'commentContent', 'post_id', 'user_id', 'createdAt'],
+				include: { model: User, attributes: ['user_name'] }
 			},
 			{
 				model: User,
-				attributes: ['userName']
+				attributes: ['user_name']
 			}
 		]
 	})
@@ -54,10 +54,8 @@ router.get('/post/:id', (req, res) => {
 				res.status(404).json({ message: 'Not Found' });
 				return;
 			}
-			// serialize the data
 			const post = dbPostData.get({ plain: true });
 			console.log(req.session.loggedIn);
-			// pass data to template
 			res.render('singlePost', {
 				post,
 				loggedIn: req.session.loggedIn

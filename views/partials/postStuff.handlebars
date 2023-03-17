@@ -1,6 +1,6 @@
 
 
-<a href="/post/{{id}}" class="text-secondary">{{title}}</a>
+<a href="/post/{{id}}" class="buttons">{{title}}</a>
 {{postContent}}
-by {{user.userName}} on {{format_date created_at}}
-<a href="/post/{{id}}" class="text-muted">{{comments.length}} {{format_plural "comment" comments.length}}</a>
+by {{user.user_name}} on {{createdAt}}
+<a href="/post/{{id}}" class="text-muted">{{comments.length}} {{"comment" comments.length}}</a>
