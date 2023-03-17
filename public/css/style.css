@@ -90,10 +90,15 @@ p{
 .greet{
   text-align: center;
   padding: 5px;
+  margin: 0 0 20px 0;
 }
 main{
-  height: 800px;
-  background-color: rgba(100, 148, 237, 0.76);}
+  height: 100vh;
+  background-color: rgba(100, 148, 237, 0.76);
+  text-align: center;
+  padding-top: 20px;
+}
+
 
 /* @media screen and (max-width: 500px) {
     body {
