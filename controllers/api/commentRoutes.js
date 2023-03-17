@@ -1,10 +1,10 @@
-const router = require("express").Router();
-const { Comment } = require("../../models");
+const router = require('express').Router();
+const { Comment } = require('../../models');
 
 //! for all http://localhost:3001/api/comments routes
 
 // GET all comments
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
 	console.log('https://localhost:3001/api/comments GET ALL')  // this is the route that is being hit when the getting data from all comments
 	Comment.findAll()
 		.then((commentData) => res.json(commentData))
@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 });
 
 // POST a comment
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
 	console.log('https://localhost:3001/api/comments POST')  // this is the route that is being hit when the adding a comment to a post
 	if (req.session) {
 		Comment.create({
@@ -32,7 +32,7 @@ router.post("/", (req, res) => {
 });
 
 // (PUT) update a comment by id
-router.put("/:id", (req, res) => {
+router.put('/:id', (req, res) => {
 	console.log('https://localhost:3001/api/comments PUT')  // this is the route that is being hit when the updating a comment
 	Comment.update(
 		{
@@ -45,7 +45,7 @@ router.put("/:id", (req, res) => {
 	)
 		.then((dbPostData) => {
 			if (!dbPostData) {
-				res.status(404).json({ message: "No comment found with this id" });
+				res.status(404).json({ message: 'No comment found with this id' });
 				return;
 			}
 			res.json(dbPostData);
@@ -57,14 +57,14 @@ router.put("/:id", (req, res) => {
 });
 
 // DELETE a comment by id
-router.delete("/:id", (req, res) => {
+router.delete('/:id', (req, res) => {
 	console.log('https://localhost:3001/api/comments DELETE')  // this is the route that is being hit when the deleting a comment
 	Comment.destroy({
 		where: { id: req.params.id, user_id: req.session.user_id, },
 	})
 		.then((dbCommentData) => {
 			if (!dbCommentData) {
-				res.status(404).json({ message: "No comment found with this id!" });
+				res.status(404).json({ message: 'No comment found with this id!' });
 				return;
 			}
 			res.json(dbCommentData);

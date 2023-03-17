@@ -52,15 +52,15 @@ router.get('/:id', (req, res) => {
 
 // create a user
 router.post('/', (req, res) => {
-    console.log(' https://localhost:3001/api/user POST')  // this is the route that is being hit when the user is created
+    console.log(' https://localhost:3001/api/users POST')  // this is the route that is being hit when the user is created
     User.create({
-        user_name: req.body.user_name,
+        username: req.body.username,
         password: req.body.password
     })
         .then(dbUserData => {
             req.session.save(() => {
                 req.session.user_id = dbUserData.id;
-                req.session.user_name = dbUserData.user_name;
+                req.session.username = dbUserData.username;
                 req.session.loggedIn = true;
                 res.json(dbUserData);
             });
@@ -73,9 +73,9 @@ router.post('/', (req, res) => {
 
 // LOGIN user
 router.post('/login', (req, res) => {
-    console.log(' https://localhost:3001/api/user/login POST') // this is the route that is being hit when the user logs in with the login form
+    console.log(' https://localhost:3001/api/users/login POST') // this is the route that is being hit when the user logs in with the login form
     User.findOne({
-        where: { user_name: req.body.user_name }
+        where: { username: req.body.username }
     }).then(dbUserData => {
         if (!dbUserData) {
             res.status(400).json({ message: 'No user with that user name!' });
@@ -88,7 +88,7 @@ router.post('/login', (req, res) => {
         }
         req.session.save(() => {
             req.session.user_id = dbUserData.id;
-            req.session.user_name = dbUserData.user_name;
+            req.session.username = dbUserData.username;
             req.session.loggedIn = true;
             res.json({ user: dbUserData, message: 'You are now logged in!' });
         });
@@ -97,7 +97,7 @@ router.post('/login', (req, res) => {
 
 // LOGOUT user
 router.post('/logout', (req, res) => {
-    console.log(' https://localhost:3001/api/user/logout POST')  // this is the route that is being hit when the user logs out
+    console.log(' https://localhost:3001/api/users/logout POST')  // this is the route that is being hit when the user logs out
     if (req.session.loggedIn) {
         req.session.destroy(() => {
             res.status(204).end();
@@ -110,7 +110,7 @@ router.post('/logout', (req, res) => {
 
 // DELETE user
 router.delete('/:id', (req, res) => {
-    console.log(' https://localhost:3001/api/user DELETE') // this is the route that is being hit when the user is being deleted
+    console.log(' https://localhost:3001/api/users DELETE') // this is the route that is being hit when the user is being deleted
     User.destroy({
         where: { id: req.params.id }
     })

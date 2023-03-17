@@ -1,5 +1,9 @@
 
-<a href="/dashboard/addPost" id="addPost" class="buttons">Add A New Post</a>
+
+<h2>This is the Homepage</h2>
+{{#if loggedin}}
+<a href='/dashboard/newPost' id='newPost' class='buttons'>Add A New Post</a>
+{{/if}}
 
 <div>
 {{#each posts}}

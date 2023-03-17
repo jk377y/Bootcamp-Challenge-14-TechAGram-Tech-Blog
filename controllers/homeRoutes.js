@@ -1,29 +1,29 @@
-const router = require("express").Router();
-const { Post, User, Comment } = require("../models");
+const router = require('express').Router();
+const { Post, User, Comment } = require('../models');
 
 //! for all http://localhost:3001 routes
 
 // get all posts for homepage
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
 	console.log('https://localhost:3001/ GET ALL')  // this is the route that is being hit when the getting all the post for the homepage
 	try {
 		Post.findAll({
-			attributes: ["id", "title", "postContent", "createdAt"],
+			attributes: ['id', 'title', 'postContent', 'createdAt'],
 			include: [
 				{
 					model: Comment,
-					attributes: ["id", "commentContent", "user_id", "post_id", "createdAt"],
+					attributes: ['id', 'commentContent', 'user_id', 'post_id', 'createdAt'],
 					include:
-						{ model: User, attributes: ["user_name"] },
+						{ model: User, attributes: ['username'] },
 				},
 				{
 					model: User,
-					attributes: ["user_name"],
+					attributes: ['username'],
 				},
 			],
 		}).then((dbPostData) => {
 			const posts = dbPostData.map((post) => post.get({ plain: true }));
-			res.render("homepage", { posts, loggedIn: req.session.loggedIn });
+			res.render('homepage', { posts, loggedIn: req.session.loggedIn });
 		});
 	} catch (err) {
 		console.log(err);
@@ -41,11 +41,11 @@ router.get('/post/:id', (req, res) => {
 			{
 				model: Comment,
 				attributes: ['id', 'commentContent', 'post_id', 'user_id', 'createdAt'],
-				include: { model: User, attributes: ['user_name'] }
+				include: { model: User, attributes: ['username'] }
 			},
 			{
 				model: User,
-				attributes: ['user_name']
+				attributes: ['username']
 			}
 		]
 	})
@@ -68,13 +68,13 @@ router.get('/post/:id', (req, res) => {
 });
 
 // login page
-router.get("/login", (req, res) => {
+router.get('/login', (req, res) => {
 	console.log('https://localhost:3001/login GET')  // this is the route that is being hit when the getting data from the login page
 	if (req.session.loggedIn) {
-		res.redirect("/");
+		res.redirect('/');
 		return;
 	}
-	res.render("login");
+	res.render('login');
 });
 
 // signup page 
