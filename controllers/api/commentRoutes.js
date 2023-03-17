@@ -5,7 +5,7 @@ const { Comment } = require("../../models");
 
 // GET all comments
 router.get("/", (req, res) => {
-	console.log('https://localhost:3001/api/comments GET ALL')
+	console.log('https://localhost:3001/api/comments GET ALL')  // this is the route that is being hit when the getting data from all comments
 	Comment.findAll()
 		.then((commentData) => res.json(commentData))
 		.catch((err) => {
@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
 
 // POST a comment
 router.post("/", (req, res) => {
-	console.log('https://localhost:3001/api/comments POST')
+	console.log('https://localhost:3001/api/comments POST')  // this is the route that is being hit when the adding a comment to a post
 	if (req.session) {
 		Comment.create({
 			commentContent: req.body.commentContent,
@@ -33,16 +33,14 @@ router.post("/", (req, res) => {
 
 // (PUT) update a comment by id
 router.put("/:id", (req, res) => {
-	console.log('https://localhost:3001/api/comments PUT')
+	console.log('https://localhost:3001/api/comments PUT')  // this is the route that is being hit when the updating a comment
 	Comment.update(
 		{
 			commentContent: req.body.commentContent,
 			userId: req.session.userId,
 		},
 		{
-			where: {
-				id: req.params.id,
-			},
+			where: { id: req.params.id },
 		}
 	)
 		.then((dbPostData) => {
@@ -60,12 +58,9 @@ router.put("/:id", (req, res) => {
 
 // DELETE a comment by id
 router.delete("/:id", (req, res) => {
-	console.log('https://localhost:3001/api/comments DELETE')
+	console.log('https://localhost:3001/api/comments DELETE')  // this is the route that is being hit when the deleting a comment
 	Comment.destroy({
-		where: {
-			id: req.params.id,
-			userId: req.session.userId,
-		},
+		where: { id: req.params.id, userId: req.session.userId, },
 	})
 		.then((dbCommentData) => {
 			if (!dbCommentData) {

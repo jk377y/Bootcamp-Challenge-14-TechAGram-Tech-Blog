@@ -76,27 +76,21 @@ router.post('/', (req, res) => {
 router.post('/login', (req, res) => {
     console.log(' https://localhost:3001/api/user/login POST') // this is the route that is being hit when the user logs in with the login form
     User.findOne({
-        where: {
-            userName: req.body.userName
-        }
+        where: { userName: req.body.userName }
     }).then(dbUserData => {
         if (!dbUserData) {
             res.status(400).json({ message: 'No user with that user name!' });
             return;
         }
-
         const validPassword = dbUserData.checkPassword(req.body.password);
-
         if (!validPassword) {
             res.status(400).json({ message: 'Incorrect password!' });
             return;
         }
-
         req.session.save(() => {
             req.session.userId = dbUserData.id;
             req.session.userName = dbUserData.userName;
             req.session.loggedIn = true;
-
             res.json({ user: dbUserData, message: 'You are now logged in!' });
         });
     });
