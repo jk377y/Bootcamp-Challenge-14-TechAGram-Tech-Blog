@@ -1,22 +1,17 @@
-// This file is used to connect to the database
-const Sequelize = require('sequelize');
+// this file is used to connect to the database
 require('dotenv').config();
 
-let sequelize;
+const Sequelize = require('sequelize');
 
-if (process.env.JAWSDB_URL) {  // If the app is deployed to Heroku, use the JAWSDB_URL environment variable to connect to the database. Otherwise, use the local database connection.
-  sequelize = new Sequelize(process.env.JAWSDB_URL);
-} else {  // Local database connection
-  sequelize = new Sequelize(
-    process.env.DB_NAME,
-    process.env.DB_USER,
-    process.env.DB_PASSWORD,
-    {
+// create connection to the db and pass in MySQL information for username and password 
+const sequelize = process.env.JAWSDB_URL
+  ? new Sequelize(process.env.JAWSDB_URL)
+  : new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PW, {
       host: 'localhost',
       dialect: 'mysql',
-      port: 3306
-    }
-  );
-}
+      dialectOptions: {
+        decimalNumbers: true,
+      },
+    });
 
-module.exports = sequelize;  // Export the connection for use in other files
+module.exports = sequelize;

@@ -5,6 +5,7 @@ const { User, Post, Comment } = require('../../models');
 
 // get all the users
 router.get('/', (req, res) => {
+    console.log(' https://localhost:3001/api/users GET ALL')  // this is the route that is being hit when the getting data from all users
     User.findAll({
         attributes: { exclude: ['password'] }
     })
@@ -17,6 +18,7 @@ router.get('/', (req, res) => {
 
 // get a single user
 router.get('/:id', (req, res) => {
+    console.log(' https://localhost:3001/api/users GET ONE')  // this is the route that is being hit when the getting data from a single user
     User.findOne({
         attributes: { exclude: ['password'] },
         where: { id: req.params.id },
@@ -50,6 +52,7 @@ router.get('/:id', (req, res) => {
 
 // create a user
 router.post('/', (req, res) => {
+    console.log(' https://localhost:3001/api/user POST')  // this is the route that is being hit when the user is created
     User.create({
         userName: req.body.userName,
         password: req.body.password
@@ -69,8 +72,9 @@ router.post('/', (req, res) => {
         });
 });
 
-// user login
+// LOGIN user
 router.post('/login', (req, res) => {
+    console.log(' https://localhost:3001/api/user/login POST') // this is the route that is being hit when the user logs in with the login form
     User.findOne({
         where: {
             userName: req.body.userName
@@ -98,8 +102,9 @@ router.post('/login', (req, res) => {
     });
 });
 
-// logout
+// LOGOUT user
 router.post('/logout', (req, res) => {
+    console.log(' https://localhost:3001/api/user/logout POST')  // this is the route that is being hit when the user logs out
     if (req.session.loggedIn) {
         req.session.destroy(() => {
             res.status(204).end();
@@ -110,27 +115,29 @@ router.post('/logout', (req, res) => {
     }
 });
 
-// update user
-router.put('/:id', (req, res) => {
-    User.update(req.body, {
-        individualHooks: true,
-        where: { id: req.params.id }
-    })
-        .then(dbUserData => {
-            if (!dbUserData) {
-                res.status(404).json({ message: 'No user found with this id' });
-                return;
-            }
-            res.json(dbUserData);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        });
-});
+// // update user
+// router.put('/:id', (req, res) => {
+//     console.log(' https://localhost:3001/api/user PUT')
+//     User.update(req.body, {
+//         individualHooks: true,
+//         where: { id: req.params.id }
+//     })
+//         .then(dbUserData => {
+//             if (!dbUserData) {
+//                 res.status(404).json({ message: 'No user found with this id' });
+//                 return;
+//             }
+//             res.json(dbUserData);
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             res.status(500).json(err);
+//         });
+// });
 
-// delete user
+// DELETE user
 router.delete('/:id', (req, res) => {
+    console.log(' https://localhost:3001/api/user DELETE') // this is the route that is being hit when the user is being deleted
     User.destroy({
         where: { id: req.params.id }
     })
