@@ -5,7 +5,8 @@ const withAuth = require("../utils/auth");
 //! for all http://localhost:3001/dashboard routes
 
 // get all posts for dashboard
-router.get("/", withAuth, (req, res) => {
+router.get("/", (req, res) => {
+	console.log(' https://localhost:3001/dashboard GET ALL') // this is the route that is being hit when the getting data from all posts w/comment and user data for the dashboard
 	Post.findAll({
 		where: { user_id: req.session.user_id },
 		attributes: ["id", "title", "postContent", "createdAt"],
@@ -31,8 +32,9 @@ router.get("/", withAuth, (req, res) => {
 		});
 });
 
-// edit a single post
-router.get("/edit/:id", withAuth, (req, res) => {
+// GET page to edit a post
+router.get("/:id", (req, res) => {
+	console.log('https://localhost:3001/dashboard/:id GET ONE') // this is the route that is being hit when getting data from a single post to edit
 	Post.findOne({
 		where: { id: req.params.id },
 		attributes: ["id", "title", "postContent", "createdAt"],
@@ -68,8 +70,9 @@ router.get("/edit/:id", withAuth, (req, res) => {
 		});
 });
 
-// create a new post 
-router.get('/addPost', withAuth, (req, res) => {
+// GET page to create a new post 
+router.get('/newPost', (req, res) => {
+	console.log('https://localhost:3001/dashboard/newPost GET ONE') // this is the route that is being hit when the getting the new post form
 	Post.findAll({ where: {	user_id: req.session.user_id },
 		attributes: ['id', 'title', 'postContent', 'createdAt'],
 	  include: [

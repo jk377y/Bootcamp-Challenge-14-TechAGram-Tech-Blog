@@ -5,6 +5,7 @@ const { Post, User, Comment } = require("../models");
 
 // get all posts for homepage
 router.get("/", async (req, res) => {
+	console.log('https://localhost:3001/ GET ALL')  // this is the route that is being hit when the getting all the post for the homepage
 	try {
 		Post.findAll({
 			attributes: ["id", "title", "postContent", "createdAt"],
@@ -32,6 +33,7 @@ router.get("/", async (req, res) => {
 
 // get single post
 router.get('/post/:id', (req, res) => {
+	console.log('https://localhost:3001/post/:id GET ONE')  // this is the route that is being hit when the getting data from a single post
 	Post.findOne({
 		where: { id: req.params.id },
 		attributes: ['id', 'title', 'postContent', 'createdAt'],
@@ -69,6 +71,7 @@ router.get('/post/:id', (req, res) => {
 
 // login page
 router.get("/login", (req, res) => {
+	console.log('https://localhost:3001/login GET')  // this is the route that is being hit when the getting data from the login page
 	if (req.session.loggedIn) {
 		res.redirect("/");
 		return;
@@ -78,6 +81,7 @@ router.get("/login", (req, res) => {
 
 // signup page 
 router.get('/signup', (req, res) => {
+	console.log('https://localhost:3001/signup GET')  // this is the route that is being hit when the getting data from the signup page
 	if (req.session.loggedIn) {
 		res.redirect('/');
 		return;

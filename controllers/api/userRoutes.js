@@ -62,7 +62,6 @@ router.post('/', (req, res) => {
                 req.session.userId = dbUserData.id;
                 req.session.userName = dbUserData.userName;
                 req.session.loggedIn = true;
-
                 res.json(dbUserData);
             });
         })
