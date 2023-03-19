@@ -1,0 +1,21 @@
+<form class='comments'>
+	{{#each comments}}
+	<div class='innerForm'>
+		<div class='userComments'>
+			Created by: <span>{{user.username}}</span> on {{format_date created_at}}
+		</div>
+		{{#if ../loggedIn}}
+		<input class='newComment' name='comment' type='text' data-id='{{id}}' value='{{comment_text}}' />
+		<button id='editCommentBtn' type='button' class='buttons editCommentBtn' data-id='{{id}}'>Edit</button>
+		<button type='button' class='buttons deleteCommentBtn' data-id='{{id}}'>Delete</button>
+		{{else}}
+		{{comment_text}}
+		{{/if}}
+	</div>
+	{{/each}}
+</form>
+
+{{#if loggedIn}}
+<script src='/js/editComment.js'></script>
+<script src='/js/deleteComment.js'></script>
+{{/if}}

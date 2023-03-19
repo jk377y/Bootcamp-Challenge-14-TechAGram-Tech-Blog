@@ -1,0 +1,8 @@
+<div class='postContainer'>
+    <a href='/post/{{id}}' class='postTitle'>{{title}}</a>
+    <h4 class='postContent'>{{post_content}}</h4>
+    <div class='postCreated'>
+        <p>Created by: <span>{{user.username}}</span> on {{format_date created_at}}</p>
+        <a href='/post/{{id}}' class=''>{{comments.length}} {{format_plural 'comment' comments.length}}</a>
+    </div>
+</div>
