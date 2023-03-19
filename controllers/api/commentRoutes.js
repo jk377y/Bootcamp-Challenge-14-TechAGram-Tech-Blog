@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-//! http://localhost:3001/api/comments
+//! http://localhost:3001/api/comments routes
 
 // GET- all comments
 router.get('/', (req, res) => {
