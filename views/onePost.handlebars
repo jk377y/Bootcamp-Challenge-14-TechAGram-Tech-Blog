@@ -1,0 +1,15 @@
+<div class='wrapper'>
+	{{> postInfo post}}
+	{{#if loggedIn}}
+	<form class='innerForm'>
+		<textarea name='newComment' class='newComment'></textarea>
+		<button id='newComment' type='submit' class='buttons'>add comment</button>
+	</form>
+	{{/if}}
+
+	{{> comments comments=post.comments loggedIn=loggedIn}}
+
+	{{#if loggedIn}}
+	<script src='/js/addComment.js'></script>
+	{{/if}}
+</div>
