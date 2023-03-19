@@ -1,14 +1,14 @@
 
 
 <h2>This is the Homepage</h2>
-{{#if loggedin}}
+{{!-- {{#if loggedin}}
 <a href='/dashboard/newPost' id='newPost' class='buttons'>Add A New Post</a>
-{{/if}}
+{{/if}} --}}
 
 <div>
 {{#each posts}}
 
-    {{> postStuff}}
+    {{> postStuff post}}
 
 {{/each}}
 </div>

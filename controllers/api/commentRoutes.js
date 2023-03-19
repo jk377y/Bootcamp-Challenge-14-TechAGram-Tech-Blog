@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
 	console.log('https://localhost:3001/api/comments POST')  // this is the route that is being hit when the adding a comment to a post
 	if (req.session) {
 		Comment.create({
-			commentContent: req.body.commentContent,
+			comment_content: req.body.comment_content,
 			user_id: req.session.user_id,
 			post_id: req.body.post_id,
 		})
@@ -36,7 +36,7 @@ router.put('/:id', (req, res) => {
 	console.log('https://localhost:3001/api/comments PUT')  // this is the route that is being hit when the updating a comment
 	Comment.update(
 		{
-			commentContent: req.body.commentContent,
+			comment_content: req.body.comment_content,
 			user_id: req.session.user_id,
 		},
 		{

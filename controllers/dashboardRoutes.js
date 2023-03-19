@@ -8,11 +8,11 @@ router.get('/', (req, res) => {
 	console.log(' https://localhost:3001/dashboard GET ALL') // this is the route that is being hit when the getting data from all posts w/comment and user data for the dashboard
 	Post.findAll({
 		where: { user_id: req.session.user_id },
-		attributes: ['id', 'title', 'postContent', 'createdAt'],
+		attributes: ['id', 'title', 'post_content', 'createdAt'],
 		include: [
 			{
 				model: Comment,
-				attributes: ['id', 'commentContent', 'post_id', 'user_id', 'createdAt'],
+				attributes: ['id', 'comment_content', 'post_id', 'user_id', 'createdAt'],
 				include: { model: User, attributes: ['username'] },
 			},
 			{
@@ -36,11 +36,11 @@ router.get('/editPost/:id', (req, res) => {
 	console.log('https://localhost:3001/dashboard/editPost/:id GET ONE') // this is the route that is being hit when getting the edit post form
 	Post.findOne({
 		where: { id: req.params.id },
-		attributes: ['id', 'title', 'postContent', 'createdAt'],
+		attributes: ['id', 'title', 'post_content', 'createdAt'],
 		include: [
 			{
 				model: Comment,
-				attributes: ['id', 'commentContent', 'post_id', 'user_id', 'createdAt'],
+				attributes: ['id', 'comment_content', 'post_id', 'user_id', 'createdAt'],
 				include: {
 					model: User,
 					attributes: ['username'],
@@ -73,11 +73,11 @@ router.get('/editPost/:id', (req, res) => {
 router.get('/newPost', (req, res) => {
 	console.log('https://localhost:3001/dashboard/newPost GET ONE') // this is the route that is being hit when the getting the new post form
 	Post.findAll({ where: {	user_id: req.session.user_id },
-		attributes: ['id', 'title', 'postContent', 'createdAt'],
+		attributes: ['id', 'title', 'post_content', 'createdAt'],
 	  include: [
 		{
 		  model: Comment,
-		  attributes: ['id', 'commentContent', 'post_id', 'user_id', 'createdAt'],
+		  attributes: ['id', 'comment_content', 'post_id', 'user_id', 'createdAt'],
 		  include: {
 			model: User,
 			attributes: ['username']
@@ -91,7 +91,7 @@ router.get('/newPost', (req, res) => {
 	})
 	  .then(dbPostData => {
 		const posts = dbPostData.map(post => post.get({ plain: true }));
-		res.render('addPost', { posts, loggedIn: true });
+		res.render('newPost', { posts, loggedIn: true });
 	  })
 	  .catch(err => {
 		console.log(err);

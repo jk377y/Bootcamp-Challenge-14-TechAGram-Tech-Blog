@@ -1,17 +1,19 @@
-{{!-- {{#if posts.length}}
-    <h2>Your Posts</h2>
-    <div>
-        <ul>
-        {{#each posts}}
-            <li>
-            {{> postStuff}}
-            <a href='/dashboard/editPost/{{id}}' class='buttons'>Edit Post</a>
-            </li>  
-        {{/each}}
-        </ul>
-    </div>
-{{#if}} --}}
+<h2>My Posts</h2>
+{{#if posts.length}}
+<section>
+    
+  <h2 class="text-muted pl-4 your-post-margin">Your Posts</h2>
+    <ol>
+    {{#each posts as |post|}}
+    <li>
+      {{> post-info post}}
+      <a href="/dashboard/edit/{{post.id}}" class="edit-link text-primary">Edit post</a>
+    </li>
+    {{/each}}
+  </ol>
+</section>
+{{/if}}
 
 <div class="">
-<a><button id="addPost" href="/dashboard/addPost" class="buttons">Add Post</button></a>
+    <a href="/dashboard/newPost"><button id="newPost" class="buttons">new Post</button></a>
 </div>

@@ -4,12 +4,14 @@
   "description": "techblog that can be used to post and comment on tech related topics",
   "main": "server.js",
   "scripts": {
+    "test": "jest",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "James Kelly",
+  "license": "MIT",
+  "homepage": "https://github.com/jk377y/techAgram#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "connect-session-sequelize": "^7.1.5",
@@ -22,6 +24,7 @@
     "sequelize": "^6.28.0"
   },
   "devDependencies": {
+    "jest": "^29.5.0",
     "nodemon": "^2.0.20"
   }
 }

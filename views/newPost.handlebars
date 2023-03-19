@@ -3,15 +3,13 @@
 
   <form class='newPostForm'>
     <div>
-      {{!-- <label for='post-title'>Title</label> --}}
-      <input type='text' id='postTitle' name='postTitle' placeholder='Post Title'/>
+      <input class='inputField' type='text' id='postTitle' name='postTitle' placeholder='Post Title'/>
     </div>
     <div>
-      {{!-- <label for='post-content'>Content</label> --}}
-      <input class='textarea' id='postContent' name='postContent' placeholder='Enter your post content here'/>
+      <input class='inputField' id='post_content' name='post_content' placeholder='Add Post Content'/>
     </div>
-    <button type='submit' class='btn'>Create</button>
+    <button id='newPostBtn' type='submit' class='buttons'>Create</button>
   </form>
 </section>
 
-{{!-- <script src='/javascript/add-post.js'></script> --}}
+<script src='/js/newPost.js'></script>

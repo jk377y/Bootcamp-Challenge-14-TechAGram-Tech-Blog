@@ -8,11 +8,11 @@ router.get('/', async (req, res) => {
 	console.log('https://localhost:3001/ GET ALL')  // this is the route that is being hit when the getting all the post for the homepage
 	try {
 		Post.findAll({
-			attributes: ['id', 'title', 'postContent', 'createdAt'],
+			attributes: ['id', 'title', 'post_content', 'createdAt'],
 			include: [
 				{
 					model: Comment,
-					attributes: ['id', 'commentContent', 'user_id', 'post_id', 'createdAt'],
+					attributes: ['id', 'comment_content', 'user_id', 'post_id', 'createdAt'],
 					include:
 						{ model: User, attributes: ['username'] },
 				},
@@ -36,11 +36,11 @@ router.get('/post/:id', (req, res) => {
 	console.log('https://localhost:3001/post/:id GET ONE')  // this is the route that is being hit when the getting data from a single post
 	Post.findOne({
 		where: { id: req.params.id },
-		attributes: ['id', 'title', 'postContent', 'createdAt'],
+		attributes: ['id', 'title', 'post_content', 'createdAt'],
 		include: [
 			{
 				model: Comment,
-				attributes: ['id', 'commentContent', 'post_id', 'user_id', 'createdAt'],
+				attributes: ['id', 'comment_content', 'post_id', 'user_id', 'createdAt'],
 				include: { model: User, attributes: ['username'] }
 			},
 			{

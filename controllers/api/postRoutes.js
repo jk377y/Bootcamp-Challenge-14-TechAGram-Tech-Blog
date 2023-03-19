@@ -7,11 +7,11 @@ const { Post, User, Comment } = require('../../models');
 router.get('/', (req, res) => {
     console.log(' https://localhost:3001/api/posts GET ALL')  // this is the route that is being hit when the getting data from all posts
     Post.findAll({
-        attributes: ['id', 'postContent', 'title', 'createdAt'],
+        attributes: ['id', 'post_content', 'title', 'createdAt'],
         include: [
             {
                 model: Comment,
-                attributes: ['id', 'commentContent', 'post_id', 'user_id', 'createdAt'],
+                attributes: ['id', 'comment_content', 'post_id', 'user_id', 'createdAt'],
                 include: {
                     model: User,
                     attributes: ['username']
@@ -35,11 +35,11 @@ router.get('/:id', (req, res) => {
     console.log(' https://localhost:3001/api/posts GET ONE')  // this is the route that is being hit when the getting data from a single post
     Post.findOne({
         where: { id: req.params.id },
-        attributes: ['id', 'postContent', 'title', 'createdAt'],
+        attributes: ['id', 'post_content', 'title', 'createdAt'],
         include: [
             {
                 model: Comment,
-                attributes: ['id', 'commentContent', 'post_id', 'user_id', 'createdAt'],
+                attributes: ['id', 'comment_content', 'post_id', 'user_id', 'createdAt'],
                 include: {
                     model: User,
                     attributes: ['username']
@@ -69,7 +69,7 @@ router.post('/', (req, res) => {
     console.log(' https://localhost:3001/api/posts POST')  // this is the route that is being hit when the post is created
     Post.create({
         title: req.body.title,
-        postContent: req.body.postContent,
+        post_content: req.body.post_content,
         user_id: req.body.user_id
     })
         .then(dbPostData => res.json(dbPostData))
@@ -85,7 +85,7 @@ router.put('/:id', (req, res) => {
     Post.update(
         {
             title: req.body.title,
-            postContent: req.body.postContent
+            post_content: req.body.post_content
         },
         {
             where: { id: req.params.id }
