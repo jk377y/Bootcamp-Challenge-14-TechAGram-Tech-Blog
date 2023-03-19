@@ -1,78 +1,77 @@
 const router = require('express').Router();
 const { Comment } = require('../../models');
+const withAuth = require('../../utils/auth');
 
-//! for all http://localhost:3001/api/comments routes
+//! http://localhost:3001/api/comments
 
-// GET all comments
+// GET- all comments
 router.get('/', (req, res) => {
-	console.log('https://localhost:3001/api/comments GET ALL')  // this is the route that is being hit when the getting data from all comments
 	Comment.findAll()
-		.then((commentData) => res.json(commentData))
-		.catch((err) => {
+		.then(dbCommentData => res.json(dbCommentData))
+		.catch(err => {
 			console.log(err);
 			res.status(500).json(err);
 		});
 });
 
-// POST a comment
-router.post('/', (req, res) => {
-	console.log('https://localhost:3001/api/comments POST')  // this is the route that is being hit when the adding a comment to a post
-	if (req.session) {
-		Comment.create({
-			comment_content: req.body.comment_content,
-			user_id: req.session.user_id,
-			post_id: req.body.post_id,
-		})
-			.then((dbCommentData) => res.json(dbCommentData))
-			.catch((err) => {
-				console.log(err);
-				res.status(400).json(err);
-			});
-	}
+// POST- a comment
+router.post('/', withAuth, (req, res) => {
+	Comment.create({
+		comment_text: req.body.comment_text,
+		user_id: req.session.user_id,
+		post_id: req.body.post_id
+	})
+	.then(dbCommentData => res.json(dbCommentData))
+	.catch(err => {
+		console.log(err);
+		res.status(400).json(err);
+	});
 });
 
-// (PUT) update a comment by id
-router.put('/:id', (req, res) => {
-	console.log('https://localhost:3001/api/comments PUT')  // this is the route that is being hit when the updating a comment
+// PUT- update a comment by id
+router.put('/:id', withAuth, (req, res) => {
 	Comment.update(
 		{
-			comment_content: req.body.comment_content,
+			comment_text: req.body.comment_text,
 			user_id: req.session.user_id,
 		},
 		{
-			where: { id: req.params.id },
+			where: { id: req.params.id }
 		}
 	)
-		.then((dbPostData) => {
-			if (!dbPostData) {
-				res.status(404).json({ message: 'No comment found with this id' });
-				return;
-			}
-			res.json(dbPostData);
-		})
-		.catch((err) => {
-			console.log(err);
-			res.status(500).json(err);
-		});
+	.then(dbPostData => {
+		if (!dbPostData) {
+			res.status(404).json({ message: 'No comment found with this id' });
+			return;
+		}
+		res.json(dbPostData);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json(err);
+	});
 });
 
-// DELETE a comment by id
-router.delete('/:id', (req, res) => {
-	console.log('https://localhost:3001/api/comments DELETE')  // this is the route that is being hit when the deleting a comment
+// DELETE- delete a comment by id
+router.delete('/:id', withAuth, (req, res) => {
 	Comment.destroy({
-		where: { id: req.params.id, user_id: req.session.user_id, },
+		where: {
+			id: req.params.id,
+			user_id: req.session.user_id,
+		}
 	})
-		.then((dbCommentData) => {
-			if (!dbCommentData) {
-				res.status(404).json({ message: 'No comment found with this id!' });
-				return;
-			}
-			res.json(dbCommentData);
-		})
-		.catch((err) => {
-			console.log(err);
-			res.status(500).json(err);
-		});
+	.then(dbCommentData => {
+		if (!dbCommentData) {
+			res.status(404).json({ message: 'No comment found with this id!' });
+			return;
+		}
+		res.json(dbCommentData);
+	})
+	.catch(err => {
+		console.log(err);
+		alert('You can only delete your own comments!');
+		res.status(500).json(err);
+	});
 });
 
 module.exports = router;
