@@ -1,39 +1,20 @@
-<article>
-  <form class='edit-post-form'>
-    <div>
-      <h5 class='text-secondary font-weight-bold'>
-      Title
-      </h5>   
-    </div>
-    <div>
-    <input class='mb-3' name='post-title' type='text' value='{{post.title}}' />    
-      <h5 class='text-secondary font-weight-bold'>
-        Content
-      </h5>
-    <input class='textarea' name='post_content' type='text' value='{{post.post_content}}' />
-    </div>
-    <div>
-      by you on {{format_date post.created_at}}
-      |
-      <a href='/post/{{post.id}}'>{{post.comments.length}} {{format_plural 'comment' post.comments.length}}</a>
-    </div>
-    <button type='submit'>Save post</button>
-    <button type='button' class='delete-post-btn'>Delete post</button>
-  </form>
-</article>
-
-<form class='comment-form'>
-  <div>
-    <textarea name='comment-body'></textarea>
-  </div>
-
-  <div>
-    <button type='submit'>add comment</button>
-  </div>
-</form>
-
-{{> comments comments=post.comments loggedIn=loggedIn}}
-
-<script src='/javascript/editPost.js'></script>
-<script src='/javascript/deletePost.js'></script>
-<script src='/javascript/addComment.js'></script>
+<div class='wrapper'>
+	<form class='innerForm'>
+		<h5>Title</h5>
+		<input class='inputField' name='post-title' type='text' value='{{post.title}}' />
+		<h5 class=''>Content</h5>
+		<input class='newComment' name='post-content' type='text' value='{{post.post_content}}' />
+		<p>by you on {{format_date post.created_at}} | <a href='/post/{{post.id}}'>{{post.comments.length}}
+				{{format_plural 'comment' post.comments.length}}</a></p>
+		<button id='savePostBtn' class='buttons' type='submit'>Save post</button>
+		<button id='deletePostBtn' class='buttons' type='submit'>Delete post</button>
+	</form>
+	<form class='innerForm'>
+		<textarea class='newComment' name='newComment'></textarea>
+		<button id='newComment' class='buttons' type='submit'>Add New Comment</button>
+	</form>
+	{{> comments comments=post.comments loggedIn=loggedIn}}
+</div>
+<script src='/js/editPost.js'></script>
+<script src='/js/deletePost.js'></script>
+<script src='/js/addComment.js'></script>

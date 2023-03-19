@@ -1,15 +1,13 @@
-
-
-<h2>This is the Homepage</h2>
-{{!-- {{#if loggedin}}
-<a href='/dashboard/newPost' id='newPost' class='buttons'>Add A New Post</a>
-{{/if}} --}}
-
-<div>
-{{#each posts}}
-
-    {{> postStuff post}}
-
-{{/each}}
+<div class='wrapper'>
+	<h2>Latest Posts</h2>
+	<ol class='homepageOl'>
+		{{#each posts as |post|}}
+		<li class='homepageLi'>
+			{{> postInfo post }}
+		</li>
+		{{/each}}
+	</ol>
+	<div>
+		<a href='/dashboard/addPost'><button id='addPost' class='buttons'>Add a new post</button></a>
+	</div>
 </div>
-
