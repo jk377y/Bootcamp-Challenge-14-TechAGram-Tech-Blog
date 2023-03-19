@@ -1,46 +1,17 @@
 const router = require('express').Router();
+const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 
-//! for all http://localhost:3001 routes
+//! http://localhost:3001/ routes
 
-// get all posts for homepage
-router.get('/', async (req, res) => {
-	console.log('https://localhost:3001/ GET ALL')  // this is the route that is being hit when the getting all the post for the homepage
-	try {
-		Post.findAll({
-			attributes: ['id', 'title', 'post_content', 'createdAt'],
-			include: [
-				{
-					model: Comment,
-					attributes: ['id', 'comment_content', 'user_id', 'post_id', 'createdAt'],
-					include:
-						{ model: User, attributes: ['username'] },
-				},
-				{
-					model: User,
-					attributes: ['username'],
-				},
-			],
-		}).then((dbPostData) => {
-			const posts = dbPostData.map((post) => post.get({ plain: true }));
-			res.render('homepage', { posts, loggedIn: req.session.loggedIn });
-		});
-	} catch (err) {
-		console.log(err);
-		res.status(500).json(err);
-	}
-});
-
-// get single post
-router.get('/post/:id', (req, res) => {
-	console.log('https://localhost:3001/post/:id GET ONE')  // this is the route that is being hit when the getting data from a single post
-	Post.findOne({
-		where: { id: req.params.id },
-		attributes: ['id', 'title', 'post_content', 'createdAt'],
+// GET- get all posts for homepage
+router.get('/', (req, res) => {
+	Post.findAll({
+		attributes: [ 'id', 'post_content', 'title', 'created_at' ],
 		include: [
 			{
 				model: Comment,
-				attributes: ['id', 'comment_content', 'post_id', 'user_id', 'createdAt'],
+				attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
 				include: { model: User, attributes: ['username'] }
 			},
 			{
@@ -49,27 +20,22 @@ router.get('/post/:id', (req, res) => {
 			}
 		]
 	})
-		.then(dbPostData => {
-			if (!dbPostData) {
-				res.status(404).json({ message: 'Not Found' });
-				return;
-			}
-			const post = dbPostData.get({ plain: true });
-			console.log(req.session.loggedIn);
-			res.render('singlePost', {
-				post,
-				loggedIn: req.session.loggedIn
-			});
-		})
-		.catch(err => {
-			console.log(err);
-			res.status(500).json(err);
+	.then(dbPostData => {
+		const posts = dbPostData.map(post => post.get({ plain: true }));
+		res.render('homepage', {
+			posts,
+			username: req.session.username,
+			loggedIn: req.session.loggedIn
 		});
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json(err);
+	});
 });
 
-// login page
+// GET- if logged in reroute to home page, otherwise render login page 
 router.get('/login', (req, res) => {
-	console.log('https://localhost:3001/login GET')  // this is the route that is being hit when the getting data from the login page
 	if (req.session.loggedIn) {
 		res.redirect('/');
 		return;
@@ -77,14 +43,48 @@ router.get('/login', (req, res) => {
 	res.render('login');
 });
 
-// signup page 
+// GET- if logged in reroute to home page, otherwise render signup page 
 router.get('/signup', (req, res) => {
-	console.log('https://localhost:3001/signup GET')  // this is the route that is being hit when the getting data from the signup page
 	if (req.session.loggedIn) {
 		res.redirect('/');
 		return;
 	}
 	res.render('signup');
+});
+
+// GET- find a post by id 
+router.get('/post/:id', (req, res) => {
+	Post.findOne({ 
+		where: { id: req.params.id },
+		attributes: [ 'id', 'post_content', 'title', 'created_at' ],
+		include: [
+			{
+				model: Comment,
+				attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+				include: { model: User, attributes: ['username'] }
+			},
+			{
+				model: User,
+				attributes: ['username']
+			}
+		]
+	})
+	.then(dbPostData => {
+		if (!dbPostData) {
+			res.status(404).json({ message: 'No post found with this id' });
+			return;
+		}
+		const post = dbPostData.get({ plain: true });
+		console.log(req.session.loggedIn);
+		res.render('onePost', {
+			post,
+			loggedIn: req.session.loggedIn
+		});
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json(err);
+	});
 });
 
 module.exports = router;
