@@ -36,7 +36,7 @@ The packages must also be imported into the project.<br>
 <br>
 
 ## Usage
-Try me out @ https://techagram.herokuapp.com/
+Try me out @ https://tech-a-gram.herokuapp.com/
 <br>
 Repository @ https://github.com/jk377y/techAgram
 <br>
