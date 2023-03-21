@@ -78,6 +78,7 @@ router.get('/post/:id', (req, res) => {
 		console.log(req.session.loggedIn);
 		res.render('onePost', {
 			post,
+			username: req.session.username,
 			loggedIn: req.session.loggedIn
 		});
 	})
