@@ -20,6 +20,9 @@
 		</nav>
 	</header>
 	<main>
+		{{#if loggedIn}}
+			<p id='greet' class='greet'>Hello, <span class="">{{username}}</span> you sexy beast!!!</p>
+		{{/if}}
 		{{{body}}}
 	</main>
 	{{#if loggedIn}}
