@@ -8,12 +8,10 @@ async function deleteFormHandler(event) {
 	const response = await fetch(`/api/posts/${id}`, {
 		method: 'DELETE'
 	});
-	if (response.ok && username.req.session.username === username) {
+	if (response.ok) {
 		document.location.replace('/dashboard/');
-	} else if (response.ok && username.req.session.username !== username) {
-		alert('You cannot delete a post that is not yours!');
 	} else {
-		alert('ALL comments must be deleted before deleting the post is allowed.');
+		alert('ALL comments must be deleted before deleting the post is allowed and/or you can only delete your own posts!');
 	}
 }
 
